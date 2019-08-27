@@ -8,7 +8,7 @@ register_matplotlib_converters()
 # Initialize plot
 fig, ax = plt.subplots()
 plt.gcf().canvas.set_window_title('Euribor rates')
-fig.set_size_inches(10, 8)
+fig.set_size_inches(12, 8)
 plt.axes(title='Comparison of 3 & 12 Month Euribor rates from 1999 to 2017')
 plt.xlabel('Dates')
 plt.ylabel('Rates')
