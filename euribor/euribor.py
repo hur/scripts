@@ -2,12 +2,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import json
 import matplotlib.dates as mdates
-
+from matplotlib.ticker import FormatStrFormatter, PercentFormatter
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
 # Initialize plot
 fig, ax = plt.subplots()
-plt.axes(title='Euribor')
+plt.gcf().canvas.set_window_title('Euribor rates')
+fig.set_size_inches(10, 8)
+plt.axes(title='Comparison of 3 & 12 Month Euribor rates from 1999 to 2017')
 plt.xlabel('Dates')
-plt.ylabel('Rates / %')
+plt.ylabel('Rates')
 
 
 
@@ -18,7 +22,7 @@ dates = [i['date'] for i in data]
 rates = [i['rate'] for i in data]
 df = pd.DataFrame({'dates':dates, 'rates':rates})
 df['dates']  = [pd.to_datetime(i) for i in df['dates']]
-plt.plot(dates, rates, 'b')
+plt.plot(df['dates'], df['rates'], 'b')
 
 # Plot 12 month Euribor data
 with open('12m.json', 'r') as file:
@@ -27,16 +31,18 @@ dates = [i['date'] for i in data2]
 rates = [i['rate'] for i in data2]
 df = pd.DataFrame({'dates':dates, 'rates':rates})
 df['dates']  = [pd.to_datetime(i) for i in df['dates']]
-plt.plot(dates, rates, 'g')
+plt.plot(df['dates'], df['rates'], 'g')
 
-# Try to format time axis ticks. 
-# The issue is that set_major_locator() and set_major_formatter() do nothing
-ax.xaxis.set_major_locator(mdates.YearLocator())
-ax.xaxis.set_major_formatter(mdates.DateFormatter('%d-%m-%Y'))
-fig.autofmt_xdate() # Rotation
-
+# Format time axis
+plt.gca().xaxis.set_major_locator(mdates.YearLocator())
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+plt.gca().yaxis.set_major_formatter(PercentFormatter())
+plt.gca().xaxis.set_minor_locator(mdates.MonthLocator())
+#plt.gca().xaxis.set_minor_formatter(mdates.DateFormatter('%b'))
+fig.autofmt_xdate(which='both')
+plt.tight_layout()
 
 # Display legend & show plot
-plt.legend(labels=('3M', '12M'))
+plt.legend(labels=('3 Month Euribor', '12 Month Euribor'))
 plt.show()
 
