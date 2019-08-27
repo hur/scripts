@@ -22,7 +22,7 @@ dates = [i['date'] for i in data]
 rates = [i['rate'] for i in data]
 df = pd.DataFrame({'dates':dates, 'rates':rates})
 df['dates']  = [pd.to_datetime(i) for i in df['dates']]
-plt.plot(df['dates'], df['rates'], 'b')
+plt.plot(df['dates'], df['rates'], 'tab:blue')
 
 # Plot 12 month Euribor data
 with open('12m.json', 'r') as file:
@@ -31,7 +31,7 @@ dates = [i['date'] for i in data2]
 rates = [i['rate'] for i in data2]
 df = pd.DataFrame({'dates':dates, 'rates':rates})
 df['dates']  = [pd.to_datetime(i) for i in df['dates']]
-plt.plot(df['dates'], df['rates'], 'g')
+plt.plot(df['dates'], df['rates'], 'tab:orange', linestyle='--')
 
 # Format time axis
 plt.gca().xaxis.set_major_locator(mdates.YearLocator())
