@@ -1,5 +1,6 @@
 ## Bash scripts
 **afs.sh** - after setting up the [UoE AFS](https://computing.help.inf.ed.ac.uk/afs-debian-ubuntu), afs.sh will take care of the necessary commands (authenticating to Kerberos and the AFS)
+
 **dicerdp.sh** - establish rdp connection to DICE without having to remember or look up the whole command. *Requirements: xfreerdp.*
 
 #### Setup:
